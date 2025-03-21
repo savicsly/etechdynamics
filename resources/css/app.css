@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@config "../../tailwind.config.ts";
 
 @plugin 'tailwindcss-animate';
 
@@ -78,13 +79,16 @@
 }
 
 :root {
+    --primary: #2b49fd;
+    --primary-dark: #05081b;
+    --background: #ffffff;
+    --foreground: #000000;
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
     --primary-foreground: oklch(0.985 0 0);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
@@ -114,13 +118,16 @@
 }
 
 .dark {
+    --primary: #2b49fd;
+    --primary-dark: #05081b;
+    --background: #05081b;
+    --foreground: #ffffff;
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.145 0 0);
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.145 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
     --primary-foreground: oklch(0.205 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
@@ -156,4 +163,62 @@
     body {
         @apply bg-background text-foreground;
     }
+}
+
+@layer components {
+    .btn-primary {
+        @apply bg-primary inline-flex items-center rounded-full px-6 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-blue-700 hover:shadow-lg;
+    }
+
+    .btn-secondary {
+        @apply text-primary border-primary hover:bg-primary/10 inline-flex items-center rounded-full border bg-white px-6 py-3 text-sm font-medium shadow-md transition-all duration-300 hover:shadow-lg;
+    }
+
+    .service-card {
+        @apply hover:border-primary/20 flex h-full flex-col rounded-lg border border-gray-100 bg-white p-6 shadow-lg transition-all duration-300 hover:shadow-xl;
+    }
+
+    .service-icon {
+        @apply text-primary mb-4 h-12 w-12 flex-shrink-0 transition-colors duration-300 group-hover:text-blue-700;
+    }
+
+    .service-title {
+        @apply group-hover:text-primary mb-2 text-xl font-semibold text-gray-900 transition-colors duration-300;
+    }
+
+    .service-description {
+        @apply flex-grow text-gray-600 transition-colors duration-300 group-hover:text-gray-800;
+    }
+}
+
+.geometric-overlay {
+    position: relative;
+}
+
+.geometric-overlay::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    /* background: theme('colors.primary.DEFAULT'); */
+    background: #2b49fd;
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.geometric-overlay::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 200px;
+    height: 200px;
+    /* background: theme('colors.primary.DEFAULT'); */
+    background: #2b49fd;
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: -1;
 }
