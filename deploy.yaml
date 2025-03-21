@@ -1,0 +1,32 @@
+import:
+    - recipe/laravel.php
+    - contrib/npm.php
+
+config:
+    repository: 'git@github.com:savicsly/etechdynamics.git'
+
+hosts:
+    87.98.146.103:
+        remote_user: hbqtvzmt
+        deploy_path: '~/etechdynamics'
+        git_ssh_command: 'ssh'
+        branch: main
+        identity_file: ~/.ssh/id_rsa
+
+tasks:
+    deploy:
+        - deploy:prepare
+        - deploy:vendors
+        - artisan:storage:link
+        - artisan:view:cache
+        - artisan:config:cache
+        - artisan:migrate
+        - artisan:queue:restart
+        - npm:install
+        - npm:run:prod
+        - deploy:publish
+    npm:run:prod:
+        - run: 'cd {{release_path}} && npm run prod'
+
+after:
+    deploy:failed: deploy:unlock
